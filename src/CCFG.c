@@ -31,6 +31,7 @@ FileDescriptor CCFG_fopen(const char* fname) {
     size += bytes_read;
   }
   descriptor.content[size] = 0;
+  fclose(f);
 
   return descriptor;
 }
