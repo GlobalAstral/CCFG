@@ -20,10 +20,10 @@ typedef enum {
   CCFG_TK_OPEN_CURLY,
   CCFG_TK_CLOSE_CURLY,
   CCFG_TK_COMMA
-} TokenType;
+} CCFG_TokenType;
 
 typedef struct {
-  TokenType type;
+  CCFG_TokenType type;
   char* value;
   long line;
 } Token;

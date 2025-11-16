@@ -41,9 +41,9 @@ bool _tokenStreamHasPeek(TokenStream* stream, int amount);
 Token _tokenStreamPeek(TokenStream* stream, int amount);
 #define tokenStreamPeek(stream) _tokenStreamPeek(stream, 0)
 Token tokenStreamConsume(TokenStream* stream);
-bool _tokenStreamPeekEqual(TokenStream* stream, TokenType t, char* val);
-bool _tokenStreamTryConsume(TokenStream* stream, TokenType t, char* val);
-Token _tokenStreamTryConsumeError(TokenStream* stream, TokenType t, char* val, const char* err);
+bool _tokenStreamPeekEqual(TokenStream* stream, CCFG_TokenType t, char* val);
+bool _tokenStreamTryConsume(TokenStream* stream, CCFG_TokenType t, char* val);
+Token _tokenStreamTryConsumeError(TokenStream* stream, CCFG_TokenType t, char* val, const char* err);
 #define tokenStreamPeekEqual(stream, type) _tokenStreamPeekEqual(stream, type, nullptr)
 #define tokenStreamTryConsume(stream, type) _tokenStreamTryConsume(stream, type, nullptr)
 #define tokenStreamTryConsumeError(stream, type, err) _tokenStreamTryConsumeError(stream, type, nullptr, err)
@@ -75,3 +75,5 @@ CCFG_Composite getComposite(CCFG_Object* obj);
 
 CCFG_Any geti(CCFG_Object* obj, long i);
 CCFG_Any getk(CCFG_Object* obj, char* key);
+
+#undef long

@@ -221,7 +221,7 @@ void tokenize(List* output, FileDescriptor* file) {
     } else {
       if (isalpha(filePeek(file))) {
         List buffer = listOf(sizeof(char));
-        while (isalnum(filePeek(file))) {
+        while (isalnum(filePeek(file)) || filePeek(file) == '_' || filePeek(file) == '-') {
           char c = fileConsume(file);
           listPush(&buffer, &c);
         }
@@ -342,13 +342,13 @@ Token tokenStreamConsume(TokenStream* stream) {
   return tokenStreamHasPeek(stream) ? stream->content[stream->index++] : EMPTY_TOKEN;
 }
 
-bool _tokenStreamPeekEqual(TokenStream* stream, TokenType t, char* val) {
+bool _tokenStreamPeekEqual(TokenStream* stream, CCFG_TokenType t, char* val) {
   Token c = tokenStreamPeek(stream);
   bool valuesEqual = ((val == nullptr || c.value == nullptr) || (strcmp(val, c.value) == 0));
   return t == c.type && valuesEqual;
 }
 
-bool _tokenStreamTryConsume(TokenStream* stream, TokenType t, char* val) {
+bool _tokenStreamTryConsume(TokenStream* stream, CCFG_TokenType t, char* val) {
   if (tokenStreamPeekEqual(stream, t)) {
     tokenStreamConsume(stream);
     return true;
@@ -356,7 +356,7 @@ bool _tokenStreamTryConsume(TokenStream* stream, TokenType t, char* val) {
   return false;
 }
 
-Token _tokenStreamTryConsumeError(TokenStream* stream, TokenType t, char* val, const char* err) {
+Token _tokenStreamTryConsumeError(TokenStream* stream, CCFG_TokenType t, char* val, const char* err) {
   if (tokenStreamPeekEqual(stream, t)) {
     return tokenStreamConsume(stream);
   }
